@@ -1,0 +1,11 @@
+{
+  "name": "hgu-degree-coming-soon",
+  "compatibility_date": "2026-09-24",
+
+  // public/ 의 정적 파일만 서빙한다 (서버 코드 없음)
+  "assets": {
+    "directory": "./public",
+    // 어떤 경로로 들어와도 대기 페이지(index.html)를 보여준다
+    "not_found_handling": "single-page-application"
+  }
+}

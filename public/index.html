@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FILLING TO FLOWING — 2026 CCD Degree Show</title>
+    <meta
+      name="description"
+      content="2026 한동대학교 콘텐츠융합디자인학부 졸업작품전 FILLING TO FLOWING. 웹사이트는 전시 개막일에 공개됩니다."
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:title" content="FILLING TO FLOWING — 2026 CCD Degree Show" />
+    <meta property="og:description" content="2026.11.04 – 11.08 · 한동대학교 제네시스홀. 웹사이트는 전시 개막일에 공개됩니다." />
+    <meta property="og:type" content="website" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+
+    <style>
+      /* 토큰 — src/app/globals.css @theme 과 같은 값 */
+      :root {
+        --core-deep-purple: #443082;
+        --core-violet: #8b6acd;
+        --core-electric-blue: #344ead;
+        --core-teal: #83bdd5;
+        --core-seafoam: #9ec9ab;
+        --core-sunlight: #e2bc5f;
+        --core-coral-orange: #e4624d;
+        --core-coral-pink: #d3558e;
+
+        --neutral-0: #ffffff;
+        --neutral-100: #e6e6e6;
+        --neutral-300: #b3b3b3;
+        --neutral-500: #666666;
+        --neutral-700: #333333;
+        --neutral-900: #000000;
+
+        --bg: var(--neutral-900);
+        --fg: var(--neutral-0);
+        --fg-secondary: var(--neutral-300);
+        --fg-tertiary: var(--neutral-500);
+        --border: var(--neutral-700);
+
+        --gradient-b: linear-gradient(90deg, #8b6acd 0%, #d3558e 33.333%, #e4624d 66.667%, #e2bc5f 100%);
+
+        --font-sans: "Plus Jakarta Sans", "Pretendard Variable", Pretendard, system-ui, sans-serif;
+        --font-kr: "Pretendard Variable", Pretendard, system-ui, sans-serif;
+
+        --margin: 24px;
+        --gutter: 16px;
+        --ease-flow: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        background: var(--bg);
+        color: var(--fg);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body {
+        min-height: 100svh;
+        background: var(--bg);
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 26px;
+        word-break: keep-all;
+        overflow-x: hidden;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--core-violet);
+        outline-offset: 2px;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+
+      .kr {
+        font-family: var(--font-kr);
+      }
+
+      /* ───────── 레이아웃 ───────── */
+      .page {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100svh - 120px);
+        padding: var(--margin);
+        gap: 64px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gutter);
+      }
+
+      /* 헤더 — Figma Header Black 변형과 같은 배치 */
+      .header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .logo {
+        display: block;
+        width: 187px;
+        height: auto;
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+        line-height: 26px;
+      }
+
+      .status-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--fg);
+        animation: blink 1.4s steps(1, end) infinite;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* ───────── 카운트다운 ───────── */
+      .hero {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 40px;
+      }
+
+      .eyebrow {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: var(--fg-secondary);
+      }
+
+      .count {
+        row-gap: 24px;
+      }
+
+      .count-cell {
+        grid-column: span 3;
+        border-top: 1px solid var(--border);
+        padding-top: 16px;
+      }
+
+      .count-num {
+        display: block;
+        font-size: clamp(64px, 10.5vw, 200px);
+        line-height: 0.9;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .count-label {
+        display: block;
+        margin-top: 12px;
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: var(--fg-tertiary);
+      }
+
+      /* ───────── 로딩 바 ───────── */
+      .loading {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .loading-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .loading-meta span:last-child {
+        color: var(--fg-secondary);
+      }
+
+      .bar {
+        position: relative;
+        height: 2px;
+        background: var(--border);
+        overflow: hidden;
+      }
+
+      .bar-fill {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 0;
+        background: var(--gradient-b);
+        background-size: calc(100vw - 2 * var(--margin)) 100%;
+        overflow: hidden;
+        transition: width 1.6s var(--ease-flow);
+      }
+
+      /* 채워지는 중이라는 걸 보여주는 흐름 */
+      .bar-fill::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -120px;
+        width: 120px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+        animation: flow 2.4s var(--ease-flow) infinite;
+      }
+
+      @keyframes flow {
+        to {
+          left: 100%;
+        }
+      }
+
+      /* ───────── 전시 정보 ───────── */
+      .info {
+        row-gap: 40px;
+        padding-top: 8px;
+      }
+
+      .info-en {
+        grid-column: span 6;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--gutter);
+      }
+
+      .info-kr {
+        grid-column: span 6;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        font-size: 14px;
+        line-height: 22px;
+      }
+
+      /* Figma 홈 정보 블록 — 6×6 마커(neutral-100), 텍스트 왼쪽 22px */
+      .marked {
+        position: relative;
+        padding-left: 22px;
+      }
+
+      .marked::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background: var(--neutral-100);
+      }
+
+      .info-en .marked::before {
+        top: 10px;
+      }
+
+      .info-kr .marked::before {
+        top: 8px;
+      }
+
+      .info-kr h2 {
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      .info-kr p {
+        color: var(--fg-secondary);
+      }
+
+      .info-kr p strong {
+        color: var(--fg);
+        font-weight: 600;
+      }
+
+      /* ───────── 푸터 — Figma Footer Black (1807:14180) ───────── */
+      /* 기본 346px(Figma). 세로가 짧은 화면(노트북)에서는 화면 높이에 맞춰 줄어든다 */
+      .site-footer {
+        --footer-h: clamp(220px, 32svh, 346px);
+        position: relative;
+        height: var(--footer-h);
+        container-type: inline-size;
+        overflow: hidden;
+        background: var(--bg);
+        font-size: 16px;
+        line-height: 26px;
+      }
+
+      /* 마블링 서브비주얼 (Figma 1646:9207 · 1682:7439, 같은 레이어 2장 겹침)
+         세로 원본을 -90° 회전해서 가로로 눕힌다. 높이는 푸터 높이의 537/346 배(Figma 비율, 푸터 밖은 잘림),
+         가로는 푸터 폭에 맞춰 늘려서 꽉 채운다. 모바일은 최소 780px 폭으로 가운데 크롭 */
+      .subvisual {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: max(100cqw, 780px);
+        height: calc(var(--footer-h) * 537 / 346);
+        transform: translateX(-50%);
+        container-type: size;
+        pointer-events: none;
+      }
+
+      .subvisual-layer {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .subvisual-rotate {
+        flex: none;
+        transform: rotate(-90deg);
+      }
+
+      .subvisual-box {
+        position: relative;
+        width: 537px;
+        height: 100cqw;
+        overflow: hidden;
+      }
+
+      .subvisual-box img {
+        position: absolute;
+        top: 0.01%;
+        left: -100.96%;
+        width: 204.84%;
+        height: 142%;
+        max-width: none;
+      }
+
+      .footer-org {
+        position: absolute;
+        top: 21px;
+        left: 25px;
+      }
+
+      /* 헤더 Coming Soon 과 같은 오른쪽 라인 */
+      .footer-contact {
+        position: absolute;
+        top: 21px;
+        right: var(--margin);
+        text-align: right;
+      }
+
+      .footer-contact a {
+        transition: opacity 0.2s;
+      }
+
+      .footer-contact a:hover {
+        opacity: 0.7;
+      }
+
+      .footer-logos {
+        position: absolute;
+        bottom: 21px;
+        left: 25px;
+        display: flex;
+        align-items: center;
+        gap: 15.429px;
+      }
+
+      /* 한동대 로고 — Figma 와 같이 로고 스프라이트(footer-logos.png)에서 잘라 쓴다 */
+      .footer-logo {
+        position: relative;
+        width: 42.286px;
+        height: 42.286px;
+        overflow: hidden;
+      }
+
+      .footer-logo img {
+        position: absolute;
+        max-width: none;
+      }
+
+      .footer-logo--wordmark img {
+        top: -42.65%;
+        left: -1414.93%;
+        width: 1583.12%;
+        height: 210.85%;
+      }
+
+      .footer-logo--symbol img {
+        top: -46%;
+        left: -1280.48%;
+        width: 1656.76%;
+        height: 220.18%;
+      }
+
+      /* ───────── 십자 커서 (CrosshairCursor 와 동일) ───────── */
+      .cursor {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        pointer-events: none;
+        opacity: 0;
+        mix-blend-mode: difference;
+        transition: opacity 0.3s;
+        --x: 50vw;
+        --y: 50vh;
+      }
+
+      .cursor i {
+        position: absolute;
+        background: #fff;
+      }
+
+      .cursor .h-l {
+        left: 0;
+        top: 0;
+        height: 0.8px;
+        width: max(0px, calc(var(--x) - 8px));
+        transform: translateY(var(--y));
+      }
+      .cursor .h-r {
+        right: 0;
+        top: 0;
+        height: 0.8px;
+        width: max(0px, calc(100% - var(--x) - 8px));
+        transform: translateY(var(--y));
+      }
+      .cursor .v-t {
+        top: 0;
+        left: 0;
+        width: 0.8px;
+        height: max(0px, calc(var(--y) - 8px));
+        transform: translateX(var(--x));
+      }
+      .cursor .v-b {
+        bottom: 0;
+        left: 0;
+        width: 0.8px;
+        height: max(0px, calc(100% - var(--y) - 8px));
+        transform: translateX(var(--x));
+      }
+      .cursor .dot {
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        transform: translate(calc(var(--x) - 3px), calc(var(--y) - 3px));
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        html.has-custom-cursor,
+        html.has-custom-cursor * {
+          cursor: none !important;
+        }
+      }
+
+      /* ───────── 등장 모션 ───────── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: reveal 1.1s var(--ease-flow) forwards;
+        animation-delay: calc(var(--i, 0) * 120ms + 150ms);
+      }
+
+      @keyframes reveal {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ───────── 반응형 (모바일 시안 없음 — 기본 정보가 잘 읽히는 선에서 정리) ───────── */
+      @media (max-width: 1024px) {
+        .info-en,
+        .info-kr {
+          grid-column: 1 / -1;
+        }
+      }
+
+      @media (max-width: 720px) {
+        :root {
+          --margin: 16px;
+          --gutter: 12px;
+        }
+
+        .page {
+          gap: 48px;
+        }
+
+        .logo {
+          width: 140px;
+        }
+
+        .status {
+          font-size: 14px;
+          line-height: 20px;
+        }
+
+        .count-cell {
+          grid-column: span 6;
+        }
+
+        .count-num {
+          font-size: clamp(56px, 22vw, 120px);
+        }
+
+        .info-en {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .site-footer {
+          --footer-h: 280px;
+          font-size: 14px;
+          line-height: 22px;
+        }
+
+        .footer-org {
+          left: var(--margin);
+          top: 16px;
+        }
+
+        .footer-contact {
+          top: 16px;
+        }
+
+        .footer-logos {
+          bottom: 16px;
+          left: var(--margin);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          animation-delay: 0ms !important;
+          transition-duration: 0.01ms !important;
+        }
+
+        .bar-fill::after {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="header reveal" style="--i: 0">
+        <h1>
+          <span class="sr-only">FILLING TO FLOWING — 2026 한동대학교 콘텐츠융합디자인학부 졸업작품전</span>
+          <svg class="logo" viewBox="0 0 234 74" fill="currentColor" aria-hidden="true">
+            <path d="M136.797 12.7213L136.729 12.3691H120.949V16.1911H129.627C130.623 16.1911 131.55 16.6872 132.106 17.5191C132.657 18.3427 132.756 19.335 132.38 20.2413C130.53 24.7017 126.215 27.5827 121.385 27.5827C118.006 27.5827 114.772 26.1389 112.517 23.6201C110.23 21.0666 109.179 17.7672 109.56 14.3305C110.159 8.91916 114.518 4.5249 119.922 3.88156C123.973 3.39864 127.937 4.9731 130.53 8.08728L130.755 8.35685L134.161 6.56409L133.848 6.15559C130.848 2.24426 126.306 0 121.385 0C112.73 0 105.688 7.03709 105.688 15.6883C105.688 24.3396 112.729 31.3766 121.385 31.3766C130.04 31.3766 137.081 24.3396 137.081 15.6883C137.081 14.7026 136.985 13.7054 136.797 12.7197V12.7213Z" />
+            <path d="M99.0752 0.650088V25.2245C99.0752 26.2135 98.2694 27.0189 97.2798 27.0189C96.3879 27.0189 95.6417 26.3805 95.506 25.499L91.6521 0.671589L80.5474 0.648438V30.8624H84.3714V6.28802C84.3714 5.29903 85.1773 4.49361 86.1701 4.49361C87.062 4.49361 87.8082 5.13199 87.9439 6.01349L91.7945 30.8409L102.899 30.8641V0.650088H99.0752Z" />
+            <path d="M76.7777 0.648438H72.9536V30.8608H76.7777V0.648438Z" />
+            <path d="M60.6215 27.0388C58.5796 27.0388 56.9183 25.3783 56.9183 23.3375V0.648438H53.0942V30.8608H70.7567V27.0388H60.6199H60.6215Z" />
+            <path d="M40.1059 27.0388C38.064 27.0388 36.4027 25.3783 36.4027 23.3375V0.648438H32.5786V30.8608H50.241V27.0388H40.1043H40.1059Z" />
+            <path d="M29.1839 0.648438H25.3599V30.8608H29.1839V0.648438Z" />
+            <path d="M11.1218 4.47046H22.6767V0.648438H0.000488281V4.47046H2.84329C4.03965 4.47046 5.01428 5.44292 5.01428 6.6403V30.8608H8.83832V14.8053C8.83832 13.6079 9.81294 12.6355 11.011 12.6355H19.1555V8.81344H11.011C10.4004 8.81344 9.8146 8.55379 9.40423 8.10229C8.98724 7.64418 8.79033 7.05045 8.8499 6.42861C8.95415 5.33211 9.95359 4.47211 11.1235 4.47211L11.1218 4.47046Z" />
+            <path d="M36.579 42.0903C27.9294 42.0903 20.8906 49.1274 20.8906 57.7787C20.8906 66.4299 27.9277 73.467 36.579 73.467C45.2302 73.467 52.2673 66.4299 52.2673 57.7787C52.2673 49.1274 45.2302 42.0903 36.579 42.0903ZM48.4734 57.7787C48.4734 64.3378 43.1381 69.6731 36.579 69.6731C30.0198 69.6731 24.6845 64.3378 24.6845 57.7787C24.6845 51.2195 30.0198 45.8842 36.579 45.8842C43.1381 45.8842 48.4734 51.2195 48.4734 57.7787Z" />
+            <path d="M0 42.7388V46.5608H5.40971C7.45055 46.5608 9.111 48.2212 9.111 50.2621V72.9511H12.933V50.2621C12.933 48.2212 14.5935 46.5608 16.6343 46.5608H22.044V42.7388H0Z" />
+            <path d="M196.252 42.7404V67.3148C196.252 68.3038 195.447 69.1092 194.458 69.1092C193.567 69.1092 192.821 68.4709 192.685 67.5894L188.833 42.7619L177.734 42.7388V72.9528H181.556V48.3784C181.556 47.3894 182.362 46.5839 183.354 46.5839C184.246 46.5839 184.991 47.2223 185.127 48.1038L188.976 72.9313L200.074 72.9544V42.7404H196.252Z" />
+            <path d="M233.717 54.8097L233.649 54.4574H217.879V58.2811H226.552C227.548 58.2811 228.472 58.7772 229.028 59.6075C229.58 60.4344 229.68 61.43 229.301 62.3396C227.45 66.795 223.137 69.6727 218.314 69.6727C214.843 69.6727 211.553 68.1611 209.289 65.5266C207.027 62.8936 206.033 59.3875 206.562 55.9062C207.361 50.6651 211.608 46.5785 216.894 45.9666C220.927 45.5002 224.875 47.0747 227.455 50.1773L227.68 50.4468L231.084 48.6541L230.771 48.2456C227.541 44.0299 222.444 41.7443 217.135 42.133C209.42 42.6969 203.2 48.9435 202.664 56.662C202.36 61.0678 203.843 65.2652 206.842 68.4787C209.799 71.6491 213.981 73.4666 218.314 73.4666C226.964 73.4666 234.003 66.4295 234.003 57.7783C234.003 56.7926 233.907 55.7937 233.718 54.8097H233.717Z" />
+            <path d="M174.244 42.8052H170.422V73.0175H174.244V42.8052Z" />
+            <path d="M162.714 42.7521L159.122 65.9307C159.068 66.2879 158.795 66.4153 158.557 66.4153H158.555C158.318 66.4153 158.046 66.2863 157.989 65.9158L154.587 46.9413H147.63L144.226 65.9274C144.171 66.2863 143.899 66.4136 143.662 66.4136H143.66C143.424 66.4136 143.151 66.2863 143.095 65.9291L139.503 42.7505H135.578V43.1838C135.578 43.2058 135.818 44.7665 136.299 47.8658C137.576 56.0986 140.113 72.4716 140.129 72.5725L140.186 72.9413H147.157L150.994 51.7358C150.999 51.7093 151.008 51.6366 151.109 51.6366C151.21 51.6366 151.22 51.7077 151.227 51.7457L155.062 72.9413H162.033L162.089 72.5742C162.094 72.5444 162.701 68.6265 163.47 63.6649C165.583 50.034 166.639 43.2075 166.639 43.1854V42.7521H162.714Z" />
+            <path d="M118.235 42.0903C109.586 42.0903 102.547 49.1274 102.547 57.7787C102.547 66.4299 109.584 73.467 118.235 73.467C126.886 73.467 133.924 66.4299 133.924 57.7787C133.924 49.1274 126.886 42.0903 118.235 42.0903ZM130.13 57.7787C130.13 64.3378 124.794 69.6731 118.235 69.6731C111.676 69.6731 106.341 64.3378 106.341 57.7787C106.341 51.2195 111.676 45.8842 118.235 45.8842C124.794 45.8842 130.13 51.2195 130.13 57.7787Z" />
+            <path d="M93.9139 69.0571C91.8731 69.0571 90.2126 67.3967 90.2126 65.3575V42.6685H86.3906V72.8808H104.044V69.0588H93.9139V69.0571Z" />
+            <path d="M71.7873 46.5608H83.3361V42.7388H60.6719V46.5608H63.5132C64.7089 46.5608 65.683 47.5332 65.683 48.7306V72.9511H69.505V56.8956C69.505 55.6983 70.4792 54.7242 71.6749 54.7242H79.8151V50.9021H71.6749C71.0646 50.9021 70.4791 50.6425 70.069 50.191C69.6522 49.7329 69.4554 49.1391 69.515 48.5173C69.6192 47.4208 70.6181 46.5608 71.7873 46.5608Z" />
+          </svg>
+        </h1>
+        <p class="status"><span class="status-dot" aria-hidden="true"></span><span id="status-text">Coming Soon</span></p>
+      </header>
+
+      <main class="hero">
+        <div class="grid count reveal" style="--i: 1" role="timer" aria-live="off" aria-label="전시 개막까지 남은 시간">
+          <p class="eyebrow">
+            <span id="eyebrow-left">Opening in</span>
+            <span>2026. 11. 04 — 10:00 KST</span>
+          </p>
+          <div class="count-cell"><span class="count-num" data-unit="d">00</span><span class="count-label">Days</span></div>
+          <div class="count-cell"><span class="count-num" data-unit="h">00</span><span class="count-label">Hours</span></div>
+          <div class="count-cell"><span class="count-num" data-unit="m">00</span><span class="count-label">Minutes</span></div>
+          <div class="count-cell"><span class="count-num" data-unit="s">00</span><span class="count-label">Seconds</span></div>
+        </div>
+
+        <div class="loading reveal" style="--i: 2">
+          <div class="loading-meta">
+            <span id="loading-label">Filling…</span>
+            <span id="loading-pct">0%</span>
+          </div>
+          <div
+            class="bar"
+            role="progressbar"
+            aria-label="웹사이트 공개까지 진행률"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            id="bar"
+          >
+            <div class="bar-fill" id="bar-fill"></div>
+          </div>
+        </div>
+
+        <section class="grid info reveal" style="--i: 3" aria-label="전시 정보">
+          <dl class="info-en">
+            <div class="marked">
+              <dt class="sr-only">전시명</dt>
+              <dd>2026<br />Degree Show</dd>
+            </div>
+            <div class="marked">
+              <dt class="sr-only">기간</dt>
+              <dd>2026. 11. 04<br />- 11. 08<br />10:00 - 18:00</dd>
+            </div>
+            <div class="marked">
+              <dt class="sr-only">장소</dt>
+              <dd>Handong<br />Global University<br />Genesis Hall</dd>
+            </div>
+          </dl>
+
+          <div class="info-kr kr">
+            <div class="marked">
+              <h2>웹사이트를 채우고 있습니다</h2>
+              <p id="message">
+                2026 한동대학교 콘텐츠융합디자인학부 졸업작품전 웹사이트는
+                <strong>전시 개막일인 11월 4일</strong>에 공개됩니다.<br />
+                조금만 기다려 주세요.
+              </p>
+            </div>
+            <div class="marked">
+              <h2>주제 말씀</h2>
+              <p>출애굽기 31:3</p>
+              <p>채우심으로 말미암아 그에게 하나님의 영을 채워주어, 지혜와 총명과 지식과 온갖 기술을 갖추게 하겠다.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+    </div>
+
+    <footer class="site-footer">
+      <div class="subvisual" aria-hidden="true">
+        <div class="subvisual-layer">
+          <div class="subvisual-rotate">
+            <div class="subvisual-box"><img src="assets/footer-subvisual.png" alt="" /></div>
+          </div>
+        </div>
+        <div class="subvisual-layer">
+          <div class="subvisual-rotate">
+            <div class="subvisual-box"><img src="assets/footer-subvisual.png" alt="" /></div>
+          </div>
+        </div>
+      </div>
+      <p class="footer-org">Handong<br />Global University<br />CCD</p>
+      <p class="footer-contact"><a href="mailto:CCD@handong.ac.kr">CCD@handong.ac.kr</a></p>
+      <div class="footer-logos" role="img" aria-label="한동대학교">
+        <div class="footer-logo footer-logo--wordmark"><img src="assets/footer-logos.png" alt="" /></div>
+        <div class="footer-logo footer-logo--symbol"><img src="assets/footer-logos.png" alt="" /></div>
+      </div>
+    </footer>
+
+    <div class="cursor" id="cursor" aria-hidden="true">
+      <i class="h-l"></i><i class="h-r"></i><i class="v-t"></i><i class="v-b"></i><i class="dot"></i>
+    </div>
+
+    <script>
+      (function () {
+        /* 전시 개막(= 사이트 공개) 시각과 로딩 바 시작 시각 — 필요하면 여기만 바꾸면 된다 */
+        var OPEN_AT = new Date("2026-11-04T10:00:00+09:00").getTime();
+        var LOADING_FROM = new Date("2026-09-01T00:00:00+09:00").getTime();
+
+        var nums = {
+          d: document.querySelector('[data-unit="d"]'),
+          h: document.querySelector('[data-unit="h"]'),
+          m: document.querySelector('[data-unit="m"]'),
+          s: document.querySelector('[data-unit="s"]'),
+        };
+        var bar = document.getElementById("bar");
+        var fill = document.getElementById("bar-fill");
+        var pctEl = document.getElementById("loading-pct");
+        var labelEl = document.getElementById("loading-label");
+        var statusEl = document.getElementById("status-text");
+        var eyebrowEl = document.getElementById("eyebrow-left");
+        var timer;
+
+        function pad(n) {
+          return String(n).padStart(2, "0");
+        }
+
+        function tick() {
+          var now = Date.now();
+          var left = Math.max(0, OPEN_AT - now);
+
+          var d = Math.floor(left / 86400000);
+          var h = Math.floor((left % 86400000) / 3600000);
+          var m = Math.floor((left % 3600000) / 60000);
+          var s = Math.floor((left % 60000) / 1000);
+
+          nums.d.textContent = pad(d);
+          nums.h.textContent = pad(h);
+          nums.m.textContent = pad(m);
+          nums.s.textContent = pad(s);
+
+          var pct = Math.min(100, Math.max(0, ((now - LOADING_FROM) / (OPEN_AT - LOADING_FROM)) * 100));
+          var shown = left === 0 ? 100 : Math.min(99, Math.floor(pct));
+          fill.style.width = pct.toFixed(3) + "%";
+          pctEl.textContent = shown + "%";
+          bar.setAttribute("aria-valuenow", String(shown));
+
+          if (left === 0) {
+            statusEl.textContent = "Now Open";
+            eyebrowEl.textContent = "Now open";
+            labelEl.textContent = "Flowing";
+            clearInterval(timer);
+          }
+        }
+
+        tick();
+        timer = setInterval(tick, 1000);
+
+        /* 십자 커서 — 마우스 기기에서만 */
+        var fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+        if (!fine.matches) return;
+
+        var cursor = document.getElementById("cursor");
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var ease = reduce ? 1 : 0.35;
+        var target = { x: innerWidth / 2, y: innerHeight / 2 };
+        var pos = { x: target.x, y: target.y };
+
+        document.documentElement.classList.add("has-custom-cursor");
+
+        addEventListener(
+          "pointermove",
+          function (e) {
+            target.x = e.clientX;
+            target.y = e.clientY;
+            cursor.style.opacity = "1";
+          },
+          { passive: true }
+        );
+        document.addEventListener("pointerleave", function () {
+          cursor.style.opacity = "0";
+        });
+
+        (function loop() {
+          pos.x += (target.x - pos.x) * ease;
+          pos.y += (target.y - pos.y) * ease;
+          cursor.style.setProperty("--x", pos.x + "px");
+          cursor.style.setProperty("--y", pos.y + "px");
+          requestAnimationFrame(loop);
+        })();
+      })();
+    </script>
+  </body>
+</html>
