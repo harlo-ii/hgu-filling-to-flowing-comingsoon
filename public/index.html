@@ -6,12 +6,13 @@
     <title>FILLING TO FLOWING — 2026 CCD Degree Show</title>
     <meta
       name="description"
-      content="2026 한동대학교 콘텐츠융합디자인학부 졸업작품전 FILLING TO FLOWING. 웹사이트는 전시 개막일에 공개됩니다."
+      content="2026 한동대학교 콘텐츠융합디자인학부 졸업작품전 FILLING TO FLOWING. 2026.11.04 – 11.08 · 한동대학교 제네시스랩. 오프닝 이벤트 11.06 15:00."
     />
     <meta name="theme-color" content="#000000" />
     <meta property="og:title" content="FILLING TO FLOWING — 2026 CCD Degree Show" />
-    <meta property="og:description" content="2026.11.04 – 11.08 · 한동대학교 제네시스홀. 웹사이트는 전시 개막일에 공개됩니다." />
+    <meta property="og:description" content="2026.11.04 – 11.08 · 한동대학교 제네시스랩 · Opening Event 11.06 15:00" />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://harlo-ii.github.io/hgu-filling-to-flowing-comingsoon/assets/invitation-poster.jpg" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -441,6 +442,42 @@
         height: 220.18%;
       }
 
+      /* ───────── 온라인 초대장 영상 — 가로 화면(태블릿 가로·데스크톱)에서만 ─────────
+         휴대폰·세로 화면은 아래 카운트다운 페이지를 그대로 보여준다.
+         영상 속에 글자가 있으므로 자르지 않고(contain) 원본 비율 그대로 화면에 맞춘다 */
+      .invite {
+        display: none;
+      }
+
+      @media (min-width: 768px) and (orientation: landscape) {
+        html,
+        body {
+          height: 100%;
+          overflow: hidden;
+        }
+
+        .page,
+        .site-footer {
+          display: none;
+        }
+
+        .invite {
+          position: fixed;
+          inset: 0;
+          z-index: 2;
+          display: grid;
+          place-items: center;
+          background: #000;
+        }
+
+        .invite video {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
       /* ───────── 십자 커서 (CrosshairCursor 와 동일) ───────── */
       .cursor {
         position: fixed;
@@ -691,22 +728,39 @@
       <div class="subvisual" aria-hidden="true">
         <div class="subvisual-layer">
           <div class="subvisual-rotate">
-            <div class="subvisual-box"><img src="assets/footer-subvisual.png" alt="" /></div>
+            <div class="subvisual-box"><img src="assets/footer-subvisual.png" alt="" loading="lazy" /></div>
           </div>
         </div>
         <div class="subvisual-layer">
           <div class="subvisual-rotate">
-            <div class="subvisual-box"><img src="assets/footer-subvisual.png" alt="" /></div>
+            <div class="subvisual-box"><img src="assets/footer-subvisual.png" alt="" loading="lazy" /></div>
           </div>
         </div>
       </div>
       <p class="footer-org">Handong<br />Global University<br />CCD</p>
       <p class="footer-contact"><a href="mailto:CCD@handong.ac.kr">CCD@handong.ac.kr</a></p>
       <div class="footer-logos" role="img" aria-label="한동대학교">
-        <div class="footer-logo footer-logo--wordmark"><img src="assets/footer-logos.png" alt="" /></div>
-        <div class="footer-logo footer-logo--symbol"><img src="assets/footer-logos.png" alt="" /></div>
+        <div class="footer-logo footer-logo--wordmark"><img src="assets/footer-logos.png" alt="" loading="lazy" /></div>
+        <div class="footer-logo footer-logo--symbol"><img src="assets/footer-logos.png" alt="" loading="lazy" /></div>
       </div>
     </footer>
+
+    <section class="invite" aria-label="온라인 초대장">
+      <video
+        id="invite-video"
+        muted
+        loop
+        playsinline
+        preload="none"
+        aria-hidden="true"
+      ></video>
+      <div class="sr-only">
+        <h2>FILLING TO FLOWING — 2026 한동대학교 콘텐츠융합디자인학부 졸업작품전</h2>
+        <p>채우심으로 말미암아 그에게 하나님의 영을 채워주어, 지혜와 총명과 지식과 온갖 기술을 갖추게 하겠다. (출 31:3)</p>
+        <p>Date 2026.11.04 – 11.08 · Time 09:00AM – 07:00PM (상기 일정은 부분적으로 변동될 수 있습니다) · Venue 한동대학교 제네시스랩</p>
+        <p>Opening Event 2026.11.06 15:00PM</p>
+      </div>
+    </section>
 
     <div class="cursor" id="cursor" aria-hidden="true">
       <i class="h-l"></i><i class="h-r"></i><i class="v-t"></i><i class="v-b"></i><i class="dot"></i>
@@ -799,6 +853,39 @@
           cursor.style.setProperty("--y", pos.y + "px");
           requestAnimationFrame(loop);
         })();
+      })();
+    </script>
+    <script>
+      /* 초대장 영상은 가로 화면에서만 불러온다 (휴대폰은 영상을 받지 않음) */
+      (function () {
+        var video = document.getElementById("invite-video");
+        var wide = window.matchMedia("(min-width: 768px) and (orientation: landscape)");
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        function sync() {
+          if (!wide.matches) {
+            video.pause();
+            return;
+          }
+          if (!video.getAttribute("src")) {
+            video.poster = "assets/invitation-poster.jpg";
+            video.src = "assets/invitation.mp4";
+            video.preload = "auto";
+          }
+          if (reduce.matches) {
+            // 모션 줄이기: 재생하지 않고 정보가 다 보이는 포스터 장면 유지
+            video.pause();
+            return;
+          }
+          var p = video.play();
+          if (p && p.catch) p.catch(function () {});
+        }
+
+        sync();
+        [wide, reduce].forEach(function (mq) {
+          if (mq.addEventListener) mq.addEventListener("change", sync);
+          else if (mq.addListener) mq.addListener(sync);
+        });
       })();
     </script>
   </body>
